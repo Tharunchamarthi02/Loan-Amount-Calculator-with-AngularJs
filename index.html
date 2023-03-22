@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Amount Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script> 
+    <script>
+        var app = angular.module("myapp",[]);
+        app.controller("mycontrol",function($scope){
+              $scope.interest = function(){
+                    amount = $scope.amount  ;
+                    rate = $scope.rate / (12 * 100);
+                    year = $scope.year * 12 ;
+                    $scope.pamount = amount;
+                    $scope.result = (amount * rate * Math.pow(1 + rate, year)) / (Math.pow(1 + rate, year) - 1);
+                    $scope.repay = $scope.result * year ;
+                    $scope.total = $scope.repay - amount ;
+              };
+         });
+    </script>
+</head>
+<body ng-app="myapp" ng-controller="mycontrol">
+    <div class="inp">
+        <h1>Loan Amount Calculator</h1>
+        Enter the Amount: <br> <input type="number" ng-model="amount" ng-keyup="interest()"> <br><br>
+        Enter the Rate of Interest: <br><input type="number" ng-model="rate" ng-keyup="interest()"> <br><br>
+        Enter the Years: <br><input type="number" ng-model="year" ng-keyup="interest()"> <br><br>
+        <br><br>
+        Loan Amount : {{pamount}} <br>
+        Total Interest : {{total}} <br>
+        EMI : {{result}} <br>
+        Total Repayment : {{repay}} <br>
+    </div>
+</body>
+</html>
